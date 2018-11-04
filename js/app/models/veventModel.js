@@ -293,8 +293,9 @@ app.factory('VEvent', function(TimezoneService, FcEvent, SimpleEvent, ICalFactor
 
 			const exdateProp = new ICAL.Property('exdate', vevent);
 			exdateProp.setValues(exdates);
-			if (angular.isDefined(dtstart.timezone)) {
-				exdateProp.setParameter('tzid', dtstart.timezone);
+			if (angular.isDefined(dtstart.zone) && dtstart.zone.tzid !== 'floating' &&
+				dtstart.zone.tzid !== 'UTC') {
+				exdateProp.setParameter('tzid', dtstart.zone.tzid);
 			}
 
 			vevent.removeAllProperties('exdate');
